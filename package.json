@@ -9,7 +9,6 @@
   "author": "Lucia Bermejo",
   "license": "MIT",
   "dependencies": {
-    "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
