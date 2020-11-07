@@ -14,6 +14,7 @@ const UserController = {
                 })
             })
     },
+    //comprobar si es un login de usuario y añadir autenticacion (token)
     showId(req,res) {
         let idUser = req.body.id;
         User.query(`SELECT * from Users WHERE id = ${idUser}`)
@@ -24,7 +25,10 @@ const UserController = {
                     message: 'Ha habido un problema localizando al usuario'
                 })
             })
-    }
+    },
+    //crear metodo para hacer logout usuario
+    //crear método de registro para usuario
+
 }
 module.exports = UserController;
 
