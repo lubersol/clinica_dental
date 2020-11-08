@@ -1,13 +1,13 @@
 //Importar e invocar el modulo de express
-const express = require('express');//para construir api rest
+const express = require('express');
 const app = express();
 
 //Importar mysql2
 const mysql = require('mysql2/promise');
 
 //Importar rutas
-let routesCitas = require('./routes/citaRouter.js');
-let routesUser = require('./routes/userRouter.js');
+const routesCitas = require('./routes/citaRouter.js');
+const routesUser = require('./routes/userRouter.js');
 
 //Puerto para el servidor
 const PORT = 3000;
@@ -33,30 +33,30 @@ app.use(function(req, res, next) { //para evitar el error CORS
 });
 
 //Enrutado endpoint de citas
-app.get('/', async(req, res) => {
-    try {
-        const db = await conexion;
-        const [citas] = await db.execute(`SELECT * FROM cita`);
-        console.log(citas)
-        res.send({
-            citas
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send({
-            message: 'Ha habido un problema consultando las citas'
-        });
-    }
-});
+// app.get('/', async(req, res) => {
+//     try {
+        
+//         // const [citas] = await db.execute(`SELECT * FROM cita`);
+//         // console.log(citas)
+//         // res.send({
+//         //     citas
+//         // });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send({
+//             message: 'Ha habido un problema consultando las citas'
+//         });
+//     }
+// });
 
 //Middleware para rutas usuario y citas
-app.use('/user', routesUser);
-app.use('/cita', routesCitas);
+app.use('/api/user', routesUser);
+app.use('/api/cita', routesCitas);
 
 //ruta simple
 // app.get("/", (req, res) => {
 //     res.json({ message: "Welcome to clinica dental" });
 //   });
-  
+
 
 app.listen(PORT, () => console.log(`Servidor funcionando en puerto ${PORT}`));

@@ -42,7 +42,7 @@ const CitaController = {
         console.log(req.params.id);
         Cita.findById(req.params.id).then(cita => {
             cita.destroy();
-            res.status(200).end();
+            res.status(200).end('Cita eliminada');
         })
             .catch(err => {
                 console.log(err);
