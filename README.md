@@ -14,9 +14,9 @@ Puede también anular una cita en concreto.
 * Endpoint para registro de usuarios.
 * Endpoint para login de usuarios.
 * Endpoint para logout de usuarios.
-* Endpoint para listado de citas pendientes.
-* Endpoint para eliminación de una cita.
-* Endpoint para creación de una cita nueva. 
+* Endpoint para listado de citas pendientes / http://localhost:3000/api/cita/Pending
+* Endpoint para eliminación de una cita / http://localhost:3000/api/cita/4
+* Endpoint para creación de una cita nueva/ http://localhost:3000/api/cita/
 
 **3 - Diagrama tablas en workbench:**
 
