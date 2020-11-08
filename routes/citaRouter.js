@@ -8,6 +8,6 @@ router.get('/showAll', CitaController.showAll);
 router.post('/', CitaController.createCita);
 //Ruta para eliminar una cita
 router.delete('/:id', CitaController.deleteCita);
-
-
+//Ruta para citas pendientes
+router.get('/pending', CitaController.showPending);
 module.exports = router;

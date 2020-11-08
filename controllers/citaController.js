@@ -14,17 +14,17 @@ const CitaController = {
                     message: 'Ha habido un problema tratando de recuperar las citas'
                 })
             })
-    },
-    showId(req, res) {
-        let idCita = req.body.id;
-        Cita.query(`SELECT * from Cita WHERE id = ${idCita}`)
-            .then(citas => res.send(citas))
-            .catch(error => {
-                console.error(error);
-                res.status(500).send({
-                    message: 'Ha habido un problema localizando la cita'
-                })
+    },//modificar para que sea citas pendientes
+    showPending(req, res) {
+        Cita.findAll({
+            where: { status: 'Pendiente' },
+        }).then(citas => {
+            res.send(citas);
+        }).catch(error => {
+            res.status(500).send({
+                message: 'Ha habido un problema localizando citas pendientes'
             })
+        })
     },
     //Método para crear una cita
     createCita(req, res) {
@@ -39,18 +39,16 @@ const CitaController = {
     },
     //Método para eliminar una cita
     deleteCita(req, res) {
-        console.log(req.params.id);
-        Cita.findById(req.params.id).then(cita => {
-            cita.destroy();
-            res.status(200).end('Cita eliminada');
+        Cita.destroy({
+            where: { id: req.params.id }
+        }).then(borrado => {
+            res.send('Cita eliminada');
         })
             .catch(err => {
                 console.log(err);
             });
 
     }
-
-    //mirar lo de citas pendientes(get)
 
 }
 module.exports = CitaController;
