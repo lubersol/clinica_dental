@@ -18,7 +18,7 @@ Puede también anular una cita en concreto.
 * Endpoint para eliminación de una cita.
 * Endpoint para creación de una cita nueva. 
 
-**2 - Diagrama tablas en workbench:**
+**3 - Diagrama tablas en workbench:**
 
 ![Screenshot](tablas.png)
 

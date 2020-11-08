@@ -6,7 +6,7 @@ const {
 const auth = async(req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
-        jwt.verify(token, 'supercalifragilisticoespialidoso');
+        jwt.verify(token, 'gatopaseandoporelteclado');
         const user = await User.findOne({ where: { token: token } });
         if (!user) {
             return res.status(401).send({ message: 'You are not authorized' })
