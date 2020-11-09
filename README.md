@@ -11,12 +11,12 @@ Puede también anular una cita en concreto.
 
 **2 - Descripción:**
 
-* Endpoint para registro de usuarios.
-* Endpoint para login de usuarios.
-* Endpoint para logout de usuarios.
+* Endpoint para registro de usuarios / http://localhost:3000/api/user/
+* Endpoint para login de usuarios / http://localhost:3000/api/user/login
+* Endpoint para logout de usuarios / http://localhost:3000/api/user/logout
 * Endpoint para listado de citas pendientes / http://localhost:3000/api/cita/Pending
 * Endpoint para eliminación de una cita / http://localhost:3000/api/cita/4
-* Endpoint para creación de una cita nueva/ http://localhost:3000/api/cita/
+* Endpoint para creación de una cita nueva / http://localhost:3000/api/cita/
 
 **3 - Diagrama tablas en workbench:**
 
