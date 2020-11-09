@@ -2,9 +2,10 @@ const router = require('express').Router();
 const UserController = require('../controllers/userController');
 
 //Ruta para crear usuario
-router.post('/', UserController.createUser);
+router.post('/', UserController.register);
 //Ruta para mostrar usuario por id / login
-router.post('/login', UserController.showId);
+router.post('/login', UserController.login);
 //Ruta para logout usuario
+router.delete('/logout', UserController.logout);
 
 module.exports = router;
