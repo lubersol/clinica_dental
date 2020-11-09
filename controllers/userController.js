@@ -1,8 +1,9 @@
 const {
     User
 } = require('../models');
+
 const bcrypt = require('bcrypt');
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 //Importar el middleware auth
 const auth = require('../middlewares/auth');
 
@@ -19,16 +20,16 @@ const UserController = {
     },
 
     //Método de registro para usuario
-     register(req, res) {
-         const u = { nombre, apellidos, rol, email, password, covid, telefono, direccion, deudor, dni, dob } = req.body;
-         User.create(u).then((user) => {
-             res.status(200).send('Usuario registrado correctamente');
-         }).catch(err => {
-             console.log(err);
-             res.status(500).json(err);
+    register(req, res) {
+        const u = { nombre, apellidos, rol, email, password, covid, telefono, direccion, deudor, dni, dob } = req.body;
+        User.create(u).then((user) => {
+            res.status(200).send('Usuario registrado correctamente');
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json(err);
         })
-     },
-    
+    },
+
     //Login usuario
     async login(req, res) {
         const { email, password } = req.body;
@@ -55,10 +56,10 @@ const UserController = {
         }
         return res.status(400).send(
             { errors: [{ message: 'no autenticado' }] }
-          );
-        
+        );
+
     },
-    
+
 }
 module.exports = UserController;
 

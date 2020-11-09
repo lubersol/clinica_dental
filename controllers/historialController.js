@@ -14,7 +14,7 @@ const HistorialController = {
                 })
             })
     },
-    showId(req,res) {
+    showId(req, res) {
         let idHistorial = req.body.id;
         Historial.query(`SELECT * from Historiales WHERE id = ${idUser}`)
             .then(historiales => res.send(historiales))

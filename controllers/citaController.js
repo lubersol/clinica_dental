@@ -14,10 +14,11 @@ const CitaController = {
                     message: 'Ha habido un problema tratando de recuperar las citas'
                 })
             })
-    },//modificar para que sea citas pendientes
+    },
+    //Ver citas pendientes
     showPending(req, res) {
         Cita.findAll({
-            where: { status: 'Pendiente' },
+            where: { status: 'Pendiente', userId: req.params.id },
         }).then(citas => {
             res.send(citas);
         }).catch(error => {
