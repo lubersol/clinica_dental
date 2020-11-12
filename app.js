@@ -21,7 +21,7 @@ const conexion = mysql.createConnection({
 })
     //PARA VER SI ESTAMOS CONECTADOS A LA BD
     .then(() => console.log('Sequelize connected'))
-    .catch((error) => console.log('Error Sequelize  connection', error));
+    .catch((error) => console.log('Error Sequelize  connection ', error));
 
 app.use(express.json()); //para evitar que el req.body sea undefined
 
