@@ -22,7 +22,7 @@ Puede también anular una cita en concreto.
 
 ![Screenshot](tablas.png)
 
- https://git.heroku.com/express-mysql-clinicadental.git
+ https://express-mysql-clinicadental.herokuapp.com/
  
  https://lubersol.github.io/clinica_dental/
 
