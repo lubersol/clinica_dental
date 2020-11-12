@@ -1,4 +1,4 @@
-# clinica_dental
+# Clinica dental
 Proyecto creado en backend con NodeJS y Express con Sequelize.
 ![Screenshot](muela.gif)
 
