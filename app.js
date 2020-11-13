@@ -10,7 +10,7 @@ const routesCitas = require('./routes/citaRouter.js');
 const routesUser = require('./routes/userRouter.js');
 
 //Puerto para el servidor
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //Conexion a la base de datos
 const conexion = mysql.createConnection({
