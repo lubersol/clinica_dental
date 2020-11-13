@@ -34,7 +34,7 @@ app.use(function (req, res, next) { //para evitar el error CORS
 
 // Ruta por defecto con mensaje de bienvenida en formato JSON.
 app.get('*', (req, res) => res.status(200).send({
-    message: 'Bienvenido a nuestra clínica dental',
+    message: 'Bienvenido a nuestra clínica dental'
 }));
 
 //Middleware para rutas usuario y citas
