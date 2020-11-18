@@ -1,5 +1,7 @@
-# Clinica dental
+# Clinica dental con React
+
 Proyecto creado en backend con NodeJS y Express con Sequelize.
+
 ![Screenshot](muela.gif)
 
 **1 - Introducción:** 
