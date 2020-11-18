@@ -24,6 +24,6 @@ Puede también anular una cita en concreto.
 
  https://express-mysql-clinicadental.herokuapp.com/
  
- https://lubersol.github.io/clinica_dental/
+ https://github.com/lubersol/Clinica_Dental_React.git
 
 
