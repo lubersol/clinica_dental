@@ -1,9 +1,20 @@
 const {
-    Cita
+    Cita, User, Sequelize
 } = require('../models');
+const { Op } = Sequelize;
+
 const CitaController = {
     showAll(req, res) {
-        Cita.findAll()
+        Cita.findAll({
+            include: [User, {
+                model: User
+            }],
+            where: {
+                date: {
+                    [Op.lt]: Date.now()
+                }
+            }
+        })
             .then(citas => res.send(citas))
             .catch(error => {
                 console.error(error);
@@ -15,7 +26,7 @@ const CitaController = {
     //Ver citas pendientes
     showPending(req, res) {
         Cita.findAll({
-            where: { status: 'pending', userId: req.params.id },
+            WHERE: { status: 'pending', userId: req.params.id },
         }).then(citas => {
             res.send(citas);
         }).catch(error => {
@@ -38,7 +49,7 @@ const CitaController = {
     //Método para eliminar una cita
     deleteCita(req, res) {
         Cita.destroy({
-            where: { id: req.params.id }
+            WHERE: { id: req.params.id }
         }).then(borrado => {
             res.send('Cita eliminada');
         })
