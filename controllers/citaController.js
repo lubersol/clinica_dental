@@ -9,7 +9,7 @@ const CitaController = {
             include: [User, {
                 model: User
             }],
-            where: {
+            WHERE: {
                 date: {
                     [Op.lt]: Date.now()
                 }
