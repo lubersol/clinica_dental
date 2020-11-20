@@ -6,10 +6,8 @@ const { Op } = Sequelize;
 const CitaController = {
     showAll(req, res) {
         Cita.findAll({
-            include: [User, {
-                model: User
-            }],
-            WHERE: {
+            include: [User],
+            where: {
                 date: {
                     [Op.lt]: Date.now()
                 }
@@ -26,7 +24,7 @@ const CitaController = {
     //Ver citas pendientes
     showPending(req, res) {
         Cita.findAll({
-            WHERE: { status: 'pending', userId: req.params.id },
+            where: { status: 'pending', id: req.params.id },
         }).then(citas => {
             res.send(citas);
         }).catch(error => {
@@ -49,7 +47,7 @@ const CitaController = {
     //Método para eliminar una cita
     deleteCita(req, res) {
         Cita.destroy({
-            WHERE: { id: req.params.id }
+            where: { id: req.params.id }
         }).then(borrado => {
             res.send('Cita eliminada');
         })
