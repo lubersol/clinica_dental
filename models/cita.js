@@ -4,7 +4,6 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Cita extends Model {
-
     static associate(models) {
       this.belongsTo(models.User);
     }
