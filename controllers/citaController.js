@@ -22,7 +22,7 @@ const CitaController = {
     //Ver citas pendientes
     showPending(req, res) {
         Cita.findAll({
-            where: { status: 'pending', userId: req.params.id },
+            where: { status: 'pending', userId: req.params.userId },
         }).then(citas => {
             res.send(citas);
         }).catch(error => {
