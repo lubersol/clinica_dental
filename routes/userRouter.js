@@ -7,5 +7,7 @@ router.post('/', UserController.register);
 router.post('/login', UserController.login);
 //Ruta para logout usuario
 router.delete('/logout', UserController.logout);
+//Ruta para mostrar usuarios
+router.get('/showAll', UserController.showAll);
 
 module.exports = router;

@@ -1,9 +1,6 @@
 const {
     Cita
 } = require('../models');
-const cita = require('../models/cita');
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
 const CitaController = {
     showAll(req, res) {
         Cita.findAll()

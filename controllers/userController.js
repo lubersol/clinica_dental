@@ -23,7 +23,9 @@ const UserController = {
     register(req, res) {
         const u = { nombre, apellidos, rol, email, password, covid, telefono, direccion, deudor, dni, dob } = req.body;
         User.create(u).then((user) => {
-            res.status(200).send('Usuario registrado correctamente');
+            res.status(200).json(
+                {message:'Usuario registrado correctamente'+ u}
+                );
         }).catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -43,7 +45,8 @@ const UserController = {
             user = await user.authorize();
             return res.json(user);
         } catch (err) {
-            return res.status(400).send('Datos introducidos incorrectos');
+            return res.status(400).json(
+                {message:'Datos introducidos incorrectos'});
         }
     },
 
