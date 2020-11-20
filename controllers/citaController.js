@@ -4,27 +4,25 @@ const {
 const { Op } = Sequelize;
 
 const CitaController = {
-    showAll(req, res) {
-        Cita.findAll({
-            include: [User],
-            where: {
-                date: {
-                    [Op.lt]: Date.now()
-                }
-            }
-        })
-            .then(citas => res.send(citas))
-            .catch(error => {
-                console.error(error);
-                res.status(500).send({
-                    message: 'Ha habido un problema tratando de recuperar las citas'
-                })
+    async showAll(req, res) {
+        try {
+            const c = await Cita.findAll({
+                include: [{
+                    model: User,
+                    attributes: ['nombre', 'apellidos']
+                }]
+            });
+            res.send(c);
+        } catch (error) {
+            res.status(500).send({
+                error, message: 'Ha habido un problema mostrando las citas'
             })
+        }
     },
     //Ver citas pendientes
     showPending(req, res) {
         Cita.findAll({
-            where: { status: 'pending', id: req.params.id },
+            where: { status: 'pending', Userid: req.params.id },
         }).then(citas => {
             res.send(citas);
         }).catch(error => {
@@ -35,7 +33,7 @@ const CitaController = {
     },
     //Método para crear una cita
     createCita(req, res) {
-        let c = req.body.cita;
+        const c = req.body.cita;
         console.log(c);
         Cita.create(c).then(() => {
             res.status(200).end('Cita creada correctamente');
