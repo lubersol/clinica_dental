@@ -1,10 +1,10 @@
 const {
-    User
+    User,
+    Cita
 } = require('../models');
 
 //const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const cita = require('../models/cita');
 //Importar el middleware auth
 //const auth = require('../middlewares/auth');
 
