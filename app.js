@@ -2,6 +2,10 @@
 const express = require('express');
 const app = express();
 
+//CORS
+const cors = require('cors');
+app.use(cors());
+
 //Importar mysql2
 const mysql = require('mysql2/promise');
 
