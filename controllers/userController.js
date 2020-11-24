@@ -69,18 +69,20 @@ const UserController = {
     },
     
     //Logout usuario
-    async logout(req, res) {
-        const { user, cookies: { auth_token: auth } } = req;
-        if (user && auth) {
-            await req.user.logout(auth);
-            return res.status(204).send()
+    async logout (req, res){
+        try{
+            const token= req.headers.authorization;
+
+            await User.findOneAndUpdate({token:token},{token:null});
+
+            res.send('Has cerrado la sesión')
+        }catch(error){
+            console.log(error)
+            res.status(500).send({message:'No se ha podido cerrar la sesión'});
+
         }
-        return res.status(400).send(
-            { errors: [{ message: 'no autenticado' }] }
-        );
 
-    },
-
+    }
 }
 module.exports = UserController;
 

@@ -33,7 +33,7 @@ const CitaController = {
     },
     //Método para crear una cita
     createCita(req, res) {
-        const c = req.body.cita;
+        const  c = req.body.cita;
         console.log(c);
         Cita.create(c).then(() => {
             res.status(200).end('Cita creada correctamente');
