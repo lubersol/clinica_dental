@@ -6,7 +6,7 @@ router.post('/', UserController.register);
 //Ruta para mostrar usuario por id / login
 router.post('/login', UserController.login);
 //Ruta para logout usuario
-router.delete('/logout', UserController.logout);
+router.get('/logout',UserController.logout);
 //Ruta para mostrar usuarios
 router.get('/showAll', UserController.showAll);
 
