@@ -3,7 +3,7 @@ const {
     Cita
 } = require('../models');
 
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 //Importar el middleware auth
 //const auth = require('../middlewares/auth');
@@ -38,40 +38,30 @@ const UserController = {
     },
 
     //Login usuario
-    login(req, res) {
-        const user = User.findOne({
-            where: {
-                email: req.body.email
+    async login  (req, res, next) {
+        try{
+            const user = User.findOne({
+                where: {
+                    email: req.body.email,
+                    password:req.body.password
+                }
+            })
+            if (!user) {
+                return res.status(400).send({message: 'Error'});
             }
-        })
-            .then(user => {
-                if (!user) {
-                    return res.status(404).send({ message: 'Usuario no encontrado' })
-                }
-                const passwordValid = bcrypt.compareSync(req.body.password, user.password);
-                if (!passwordValid) {
-                    return res.status(401).send({
-                        token: null,
-                        message: 'Password no válido'
-                    });
-                }
-                const token = jwt.sign({
-                    id: user.id, rol: user.rol
-                }, 'gatopaseandoporelteclado', {
-                    expiresIn: '5d'
-                })
+            const token = jwt.sign({
+                id: user.id, rol: user.rol
+            }, 'gatopaseandoporelteclado', {
+                expiresIn: '5d'
+            })
 
                 res.status(200).send({
-                    id: user.id,
-                    email: user.email,
-                    token: user.token,
-                    rol: user.rol,
+                    user,token,
                     message: 'Has accedido correctamente'
                 });
-    })
-                    .catch(err => {
-        res.status(500).send({ message: err.message });
-    });
+    }catch(error){res.status(400).send({ message: 'Error al acceder'});
+}
+    
 },
 
     //Logout usuario
