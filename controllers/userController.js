@@ -38,42 +38,41 @@ const UserController = {
     },
 
     //Login usuario
-    async login(req, res) {
-        const user = await User.findAll({
-            where:{
-            email: req.body.email,
-            password: req.body.password
-        }
-        });
-        if (!user) {
-            return res.status(400).send({
-                message: 'Datos incorrectos'
-            })
-        } else {
-            const isMatch = await bcrypt.compare(req.body.password, user.password);
-            if (isMatch) {
+    login(req, res) {
+        const user = User.findOne({
+            where: {
+                email: req.body.email
+            }
+        })
+            .then(user => {
+                if (!user) {
+                    return res.status(404).send({ message: 'Usuario no encontrado' })
+                }
+                const passwordValid = bcrypt.compareSync(req.body.password, user.password);
+                if (!passwordValid) {
+                    return res.status(401).send({
+                        token: null,
+                        message: 'Password no válido'
+                    });
+                }
                 const token = jwt.sign({
                     id: user.id, rol: user.rol
                 }, 'gatopaseandoporelteclado', {
                     expiresIn: '5d'
                 })
-                user.token = token;
-                await user.save()
 
-                res.send({
-                    name: user.nombre,
-                    surname: user.apellidos,
+                res.status(200).send({
+                    id: user.id,
+                    email: user.email,
                     token: user.token,
                     rol: user.rol,
                     message: 'Has accedido correctamente'
-                })
-            } else {
-                return res.status(400).send({
-                    message: 'No has accedido correctamente'
                 });
-            }
-        }
-    },
+    })
+                    .catch(err => {
+        res.status(500).send({ message: err.message });
+    });
+},
 
     //Logout usuario
     async logout(req, res) {
