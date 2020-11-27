@@ -3,7 +3,7 @@ const {
     Cita
 } = require('../models');
 
-//const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 //Importar el middleware auth
 //const auth = require('../middlewares/auth');
@@ -39,46 +39,51 @@ const UserController = {
 
     //Login usuario
     async login(req, res) {
-        try {
-            const user = await User.findOne({
-                where: {
-                    email: req.body.email,
-                    password: req.body.password
-                }
+        const user = await User.findOne({
+            email: req.body.email,
+            password: req.body.password
+        });
+        if (!user) {
+            return res.status(400).send({
+                message: 'Datos incorrectos'
             })
-            if (!user) {
+        } else {
+            const isMatch = await bcrypt.compare(req.body.password, user.password);
+            if (isMatch) {
+                const token = jwt.sign({
+                    id: user.id, rol: user.rol
+                }, 'gatopaseandoporelteclado', {
+                    expiresIn: '5d'
+                })
+                user.token = token;
+                await user.save()
+
+                res.send({
+                    name: user.nombre,
+                    surname: user.apellidos,
+                    token: user.token,
+                    rol: user.rol,
+                    message: 'Has accedido correctamente'
+                })
+            } else {
                 return res.status(400).send({
-                    message: 'Datos incorrectos'
+                    message: 'No has accedido correctamente'
                 });
             }
-            const token = jwt.sign({
-                id: user.id
-            }, 'gatopaseandoporelteclado', {
-                expiresIn: '1y'
-            })
-            res.send({
-                user,
-                token,
-                message: 'Has accedido correctamente'
-            });
-        } catch (error) {
-            res.status(400).send({
-                message: 'No has accedido correctamente'
-            });
         }
     },
-    
+
     //Logout usuario
-    async logout (req, res){
-        try{
-            const token= req.headers.authorization;
-
-            await User.findOneAndUpdate({token:token},{token:null});
-
+    async logout(req, res) {
+        try {
+            const token = req.headers.authorization.split(' ')[1];
+            const out = await User.findOne({ token: token });
+            out.token = null;
+            out.save();
             res.send('Has cerrado la sesión')
-        }catch(error){
+        } catch (error) {
             console.log(error)
-            res.status(500).send({message:'No se ha podido cerrar la sesión'});
+            res.status(500).send({ message: 'No se ha podido cerrar la sesión' });
 
         }
 
