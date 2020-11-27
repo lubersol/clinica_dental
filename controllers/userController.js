@@ -39,9 +39,11 @@ const UserController = {
 
     //Login usuario
     async login(req, res) {
-        const user = await User.findOne({
+        const user = await User.findAll({
+            where:{
             email: req.body.email,
             password: req.body.password
+        }
         });
         if (!user) {
             return res.status(400).send({
